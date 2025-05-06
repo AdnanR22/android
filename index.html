@@ -7,7 +7,6 @@
       google.charts.setOnLoadCallback(drawChart);
 
       var chart;
-      var gauge;
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
@@ -16,30 +15,47 @@
         ]);
 
         var options = {
-          width: 400, height: 320,
+          width: 200,
+          height: 160,
           redFrom: 90, redTo: 100,
           yellowFrom: 75, yellowTo: 90,
           minorTicks: 4,
-                              majorTicks: ['900', '950', '1000', '1050', '1100']
+          majorTicks: ['900', '950', '1000', '1050', '1100']
         };
 
         chart = new google.visualization.Gauge(document.getElementById('chart_div'));
         chart.draw(data, options);
 
         setInterval(function() {
-          var altitude = getAltitudeFromSensor(); // Replace with actual sensor data
+          var altitude = getAltitudeFromSensor();
           data.setValue(0, 1, altitude);
           chart.draw(data, options);
         }, 1000);
       }
 
       function getAltitudeFromSensor() {
-        // Replace with actual sensor data retrieval logic
-        return Math.random() * 100; // Simulated altitude value
+        return Math.random() * 100;
       }
     </script>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #chart_div {
+        width: 200px;
+        height: 160px;
+        position: relative;
+        left: 10px; /* Pomak udesno */
+      }
+    </style>
   </head>
-  <body style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
-    <div id="chart_div" style="width: 400px; height: 80px;"></div>
+  <body>
+    <div id="chart_div"></div>
   </body>
 </html>
